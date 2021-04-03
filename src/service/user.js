@@ -10,11 +10,6 @@ const getUser = async (username, password) => {
         password,
       }),
     });
-
-    if (res == null) {
-      return res;
-    }
-
     return formatUser(res.dataValues);
   } catch (e) {
     console.error(e);

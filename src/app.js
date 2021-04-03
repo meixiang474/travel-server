@@ -16,6 +16,8 @@ const indexViewRouter = require("./routes/view/index");
 const userApiRouter = require("./routes/api/user");
 const utilsApiRouter = require("./routes/api/utils");
 const commonApiRouter = require("./routes/api/common");
+const houseApiRouter = require("./routes/api/house");
+const commentApiRouter = require("./routes/api/comment");
 const notFoundRouter = require("./routes/notFound");
 
 // error handler
@@ -60,6 +62,8 @@ app.use(indexViewRouter.routes(), indexViewRouter.allowedMethods());
 app.use(userApiRouter.routes(), userApiRouter.allowedMethods());
 app.use(utilsApiRouter.routes(), utilsApiRouter.allowedMethods());
 app.use(commonApiRouter.routes(), commonApiRouter.allowedMethods());
+app.use(houseApiRouter.routes(), houseApiRouter.allowedMethods());
+app.use(commentApiRouter.routes(), commentApiRouter.allowedMethods());
 app.use(notFoundRouter.routes(), notFoundRouter.allowedMethods());
 
 // error-handling

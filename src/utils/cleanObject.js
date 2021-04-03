@@ -1,12 +1,10 @@
-const _isVoid = (val) => {
-  return val == null || val === "";
-};
+const isVoid = require("./isVoid");
 
-const cleanObject = (object) => {
+const cleanObject = (object = {}) => {
   const result = { ...object };
   Object.keys(object).forEach((key) => {
     const value = object[key];
-    if (_isVoid(value)) {
+    if (isVoid(value)) {
       delete result[key];
     }
   });
