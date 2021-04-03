@@ -31,8 +31,8 @@ const SCHEMA = {
   },
 };
 
-function userValidate(data = {}) {
+const userValidate = (data = {}) => {
   return validate(SCHEMA, data);
-}
+};
 
 module.exports = userValidate;

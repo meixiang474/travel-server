@@ -1,8 +1,8 @@
-function _isVoid(val) {
+const _isVoid = (val) => {
   return val == null || val === "";
-}
+};
 
-function cleanObject(object) {
+const cleanObject = (object) => {
   const result = { ...object };
   Object.keys(object).forEach((key) => {
     const value = object[key];
@@ -11,6 +11,6 @@ function cleanObject(object) {
     }
   });
   return result;
-}
+};
 
 module.exports = cleanObject;

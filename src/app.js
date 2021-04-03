@@ -15,6 +15,7 @@ const { REDIS_CONF } = require("./conf/db");
 const indexViewRouter = require("./routes/view/index");
 const userApiRouter = require("./routes/api/user");
 const utilsApiRouter = require("./routes/api/utils");
+const commonApiRouter = require("./routes/api/common");
 const notFoundRouter = require("./routes/notFound");
 
 // error handler
@@ -58,6 +59,7 @@ app.use(
 app.use(indexViewRouter.routes(), indexViewRouter.allowedMethods());
 app.use(userApiRouter.routes(), userApiRouter.allowedMethods());
 app.use(utilsApiRouter.routes(), utilsApiRouter.allowedMethods());
+app.use(commonApiRouter.routes(), commonApiRouter.allowedMethods());
 app.use(notFoundRouter.routes(), notFoundRouter.allowedMethods());
 
 // error-handling
