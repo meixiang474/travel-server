@@ -25,7 +25,10 @@ const login = async (ctx) => {
   const { username, password } = ctx.request.body;
   const userInfo = await getUser(username, doCrypto(password));
   if (isVoid(userInfo)) {
-    return new ErrorModel(500, "该用户不存在");
+    const isUsernameCorrect = await getUser(username);
+    return isUsernameCorrect
+      ? new ErrorModel(501, "密码错误")
+      : new ErrorModel(502, "该用户不存在");
   }
   ctx.session.userInfo = userInfo;
   return new SuccessModel(200, unPick(userInfo, ["password"]));
@@ -34,7 +37,10 @@ const login = async (ctx) => {
 const detail = async (ctx) => {
   try {
     const { userInfo } = ctx.session;
-    return new SuccessModel(200, unPick(userInfo, ["password"]));
+    return new SuccessModel(
+      200,
+      isVoid(userInfo) ? null : unPick(userInfo, ["password"])
+    );
   } catch (e) {
     return new ErrorModel(500, "查询用户信息失败");
   }
@@ -51,7 +57,6 @@ const logout = async (ctx) => {
 
 const edit = async (ctx) => {
   const params = ctx.request.body;
-  console.log(params);
   const { username } = ctx.session.userInfo;
   const res = await updateUser(
     { ...params, password: doCrypto(params.password) },
@@ -64,10 +69,17 @@ const edit = async (ctx) => {
   return new SuccessModel(200, "ok");
 };
 
+const userInfo = async (ctx) => {
+  const { username } = ctx.request.body;
+  const res = await getUser(username);
+  return new SuccessModel(200, isVoid(res) ? null : unPick(res, ["password"]));
+};
+
 module.exports = {
   register,
   login,
   detail,
   logout,
   edit,
+  userInfo,
 };

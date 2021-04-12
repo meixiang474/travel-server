@@ -19,6 +19,8 @@ const getCitiesFromCache = async () => {
     if (isVoid(data)) {
       return data;
     }
+    data.cities = data.citys;
+    delete data.citys;
     set(key, data, 60);
     return data;
   } catch (e) {

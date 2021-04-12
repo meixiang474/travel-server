@@ -12,6 +12,10 @@ Comment.belongsTo(User, {
   foreignKey: "userId",
 });
 
+Order.belongsTo(House, {
+  foreignKey: "houseId",
+});
+
 module.exports = {
   User,
   House,

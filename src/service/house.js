@@ -8,12 +8,12 @@ const getHouses = async (pageIndex, pageSize, params = {}) => {
     const where = cleanObejct(params);
     if (where.startTime) {
       where.startTime = {
-        [Sequelize.Op.gte]: where.startTime,
+        [Sequelize.Op.lte]: where.startTime,
       };
     }
     if (where.endTime) {
       where.endTime = {
-        [Sequelize.Op.lte]: where.endTime,
+        [Sequelize.Op.gte]: where.endTime,
       };
     }
     if (where.name) {

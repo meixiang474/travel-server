@@ -1,10 +1,10 @@
 const seq = require("../seq");
-const { INTEGER, STRING, BOOLEAN } = require("../types");
+const { INTEGER, BOOLEAN, STRING } = require("../types");
 
 const Order = seq.define("order", {
   orderNum: {
     type: STRING,
-    allowNull: false,
+    allowNull: true,
     comment: "订单编号",
   },
   userId: {

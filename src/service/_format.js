@@ -5,8 +5,8 @@ const formatUser = (res) => {
   if (isVoid(res)) {
     return res;
   }
-  if (isVoid(res.picture)) {
-    res.picture = DEFAULT_PICTURE;
+  if (isVoid(res.avatar)) {
+    res.avatar = DEFAULT_PICTURE;
   }
   return res;
 };
@@ -46,9 +46,24 @@ const formatComments = (res) => {
   };
 };
 
+const formatOrders = (res) => {
+  const orders = res.rows.map((row) => {
+    const res = row.dataValues;
+    res.house = res.house.dataValues;
+    res.house.image = res.house.houseImages[0].dataValues.url;
+    delete res.house.houseImages;
+    return res;
+  });
+  return {
+    count: res.count,
+    orders,
+  };
+};
+
 module.exports = {
   formatUser,
   formatHouses,
   formatHouseInfo,
   formatComments,
+  formatOrders,
 };

@@ -7,7 +7,6 @@ const bodyparser = require("koa-bodyparser");
 const logger = require("koa-logger");
 const session = require("koa-generic-session");
 const redisStore = require("koa-redis");
-const cors = require("koa2-cors");
 
 const { SECRET_SESSION_KEY } = require("./conf/const");
 const { REDIS_CONF } = require("./conf/db");
@@ -18,13 +17,13 @@ const utilsApiRouter = require("./routes/api/utils");
 const commonApiRouter = require("./routes/api/common");
 const houseApiRouter = require("./routes/api/house");
 const commentApiRouter = require("./routes/api/comment");
+const orderApiRouter = require("./routes/api/order");
 const notFoundRouter = require("./routes/notFound");
 
 // error handler
 onerror(app);
 
 // middlewares
-app.use(cors());
 app.use(
   bodyparser({
     enableTypes: ["json", "form-data", "text"],
@@ -64,6 +63,7 @@ app.use(utilsApiRouter.routes(), utilsApiRouter.allowedMethods());
 app.use(commonApiRouter.routes(), commonApiRouter.allowedMethods());
 app.use(houseApiRouter.routes(), houseApiRouter.allowedMethods());
 app.use(commentApiRouter.routes(), commentApiRouter.allowedMethods());
+app.use(orderApiRouter.routes(), orderApiRouter.allowedMethods());
 app.use(notFoundRouter.routes(), notFoundRouter.allowedMethods());
 
 // error-handling

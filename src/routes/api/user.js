@@ -5,6 +5,7 @@ const {
   detail,
   logout,
   edit,
+  isExist,
 } = require("../../controller/user");
 const genValidator = require("../../middlewares/validator");
 const userValidate = require("../../validator/user");
@@ -28,8 +29,12 @@ router.post("/logout", loginCheck, async (ctx) => {
   ctx.body = await logout(ctx);
 });
 
-router.post("/edit", loginCheck, async (ctx) => {
+router.post("/edit", loginCheck, genValidator(userValidate), async (ctx) => {
   ctx.body = await edit(ctx);
+});
+
+router.post("/userInfo", async (ctx) => {
+  ctx.body = await isExist(ctx);
 });
 
 module.exports = router;
