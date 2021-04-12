@@ -72,7 +72,10 @@ const edit = async (ctx) => {
 const userInfo = async (ctx) => {
   const { username } = ctx.request.body;
   const res = await getUser(username);
-  return new SuccessModel(200, isVoid(res) ? null : unPick(res, ["password"]));
+  return new SuccessModel(
+    200,
+    isVoid(res) ? null : unPick(res, ["password", "phone"])
+  );
 };
 
 module.exports = {
