@@ -74,7 +74,7 @@ const userInfo = async (ctx) => {
   const res = await getUser(username);
   return new SuccessModel(
     200,
-    isVoid(res) ? null : unPick(res, ["password", "phone"])
+    isVoid(res) ? null : unPick(res, ["password", "phone", "id"])
   );
 };
 

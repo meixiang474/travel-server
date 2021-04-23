@@ -9,7 +9,7 @@ const getUser = async (username, password) => {
         username,
         password,
       }),
-      attributes: ["username", "avatar", "phone"],
+      attributes: ["username", "avatar", "phone", "id"],
     });
     return formatUser(res.dataValues);
   } catch (e) {

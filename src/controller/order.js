@@ -17,6 +17,7 @@ const hasOrder = async (ctx) => {
 };
 
 const addOrder = async (ctx) => {
+  console.log(ctx.session.userInfo);
   const { id } = ctx.session.userInfo;
   const { houseId } = ctx.request.body;
   const res = await createOrder(id, houseId, false);
@@ -27,8 +28,9 @@ const addOrder = async (ctx) => {
 };
 
 const deleteOrder = async (ctx) => {
-  const { id } = ctx.request.body;
-  const res = await removeOrder(id);
+  const { houseId } = ctx.request.body;
+  const { id } = ctx.session.userInfo;
+  const res = await removeOrder(id, houseId);
   if (isFalsy(res)) {
     return new ErrorModel(500, "取消预定失败");
   }
@@ -37,6 +39,7 @@ const deleteOrder = async (ctx) => {
 
 const lists = async (ctx) => {
   const { pageSize = 8, pageIndex = 0, isPayed = false } = ctx.request.body;
+  console.log(pageSize, pageIndex, isPayed);
   const { id } = ctx.session.userInfo;
   const res = await getOrders({ pageIndex, pageSize, userId: id, isPayed });
   if (isVoid(res)) {
@@ -61,10 +64,27 @@ const pay = async (ctx) => {
   return new SuccessModel(200, res);
 };
 
+const status = async (ctx) => {
+  if (isVoid(ctx.session.userInfo)) {
+    return new SuccessModel(200, "normal");
+  }
+  const { houseId } = ctx.request.body;
+  const { id } = ctx.session.userInfo;
+  const orderInfo = await getOrder(id, houseId);
+  if (isVoid(orderInfo)) {
+    return new SuccessModel(200, "normal");
+  }
+  if (isFalsy(orderInfo.isPayed)) {
+    return new SuccessModel(200, "ordered");
+  }
+  return new SuccessModel(200, "bought");
+};
+
 module.exports = {
   hasOrder,
   addOrder,
   deleteOrder,
   lists,
   pay,
+  status,
 };

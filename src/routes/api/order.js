@@ -5,6 +5,7 @@ const {
   deleteOrder,
   lists,
   pay,
+  status,
 } = require("../../controller/order");
 const loginCheck = require("../../middlewares/loginCheck");
 const genValidator = require("../../middlewares/validator");
@@ -40,6 +41,10 @@ router.post("/lists", loginCheck, async (ctx) => {
 
 router.post("/pay", loginCheck, async (ctx) => {
   ctx.body = await pay(ctx);
+});
+
+router.post("/status", async (ctx) => {
+  ctx.body = await status(ctx);
 });
 
 module.exports = router;

@@ -39,11 +39,12 @@ const createOrder = async (userId, houseId, isPayed) => {
   }
 };
 
-const removeOrder = async (id) => {
+const removeOrder = async (userId, houseId) => {
   try {
     const res = await Order.destroy({
       where: {
-        id,
+        userId,
+        houseId,
       },
     });
     return res > 0;
@@ -56,10 +57,10 @@ const removeOrder = async (id) => {
 const getOrders = async ({ pageIndex, pageSize, userId, isPayed }) => {
   try {
     const res = await Order.findAndCountAll({
-      order: [["createdAt", "desc"]],
-      limt: pageSize,
+      order: [["updatedAt", "desc"]],
+      limit: pageSize,
       attributes: {
-        exclude: ["updatedAt", "userId", "houseId"],
+        exclude: ["userId", "houseId"],
       },
       offset: pageIndex * pageSize,
       where: {
