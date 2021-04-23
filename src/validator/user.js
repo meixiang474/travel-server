@@ -24,6 +24,10 @@ const SCHEMA = {
       type: "string",
       maxLength: 255,
     },
+    sign: {
+      type: "string",
+      maxLength: 255,
+    },
     phone: {
       type: "string",
       maxLength: 255,

@@ -21,6 +21,10 @@ const User = seq.define("user", {
     type: STRING,
     comment: "电话",
   },
+  sign: {
+    type: STRING,
+    comment: "签名",
+  },
 });
 
 module.exports = User;
