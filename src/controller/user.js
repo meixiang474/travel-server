@@ -4,6 +4,7 @@ const unPick = require("../utils/unPick");
 const { SuccessModel, ErrorModel } = require("../model");
 const isVoid = require("../utils/isVoid");
 const isFalsy = require("../utils/isFalsy");
+const xss = require("xss");
 
 const register = async (ctx) => {
   const params = ctx.request.body;
@@ -59,7 +60,7 @@ const edit = async (ctx) => {
   const params = ctx.request.body;
   const { username } = ctx.session.userInfo;
   const res = await updateUser(
-    { ...params, password: doCrypto(params.password) },
+    { ...params, password: doCrypto(params.password), sign: xss(params.sign) },
     username
   );
   if (isFalsy(res)) {
