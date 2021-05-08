@@ -13,7 +13,7 @@ const getCitiesFromCache = async () => {
     }
     const { data } = await axios.get("https://apis.imooc.com", {
       params: {
-        icode: "92E50D62EE29D7F5",
+        icode: "F5E20C9F38192C8D",
       },
     });
     if (isVoid(data)) {
